@@ -117,7 +117,6 @@ h1._w-div {
   font-weight: 600 !important;
 }
 
-/* Message field: real <textarea> with a draggable resize handle, like griflan.com/contact */
 .message-textarea {
   resize: vertical !important;
   min-height: 68px;
@@ -284,6 +283,39 @@ document.querySelectorAll('.scramble-text').forEach(target => {
     });
     nav.classList.toggle('nav-on-light', theme === 'light');
 
+    ticking = false;
+  };
+
+  addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+})();
+</script>
+<script>
+(() => {
+  // Nav links fade out as soon as the user scrolls (logo stays), like
+  // latecheckout.agency. Reappears once scrolled back to the very top.
+  // Inline styles are (re)applied directly on every tick, matching how
+  // latecheckout.agency itself does it - overrides any competing
+  // Webflow IX2 animation still touching this element's opacity.
+  const navWrap = document.querySelector('.navbar .nav-wrap');
+  if (!navWrap) return;
+  navWrap.style.transition = 'opacity 0.25s ease';
+  let ticking = false;
+  let lastHidden = null;
+
+  const update = () => {
+    const hidden = window.scrollY > 0;
+    if (hidden !== lastHidden) {
+      // Cancel any other animation (e.g. a leftover Webflow IX2 effect)
+      // still touching this element's opacity before asserting ours,
+      // so nothing outranks this in the animation cascade.
+      navWrap.getAnimations().forEach(a => a.cancel());
+      navWrap.style.opacity = hidden ? '0' : '1';
+      navWrap.style.pointerEvents = hidden ? 'none' : 'auto';
+      lastHidden = hidden;
+    }
     ticking = false;
   };
 
