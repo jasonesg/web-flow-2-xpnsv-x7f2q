@@ -158,18 +158,35 @@ h1._w-div {
   .background-video-4 {
     max-height: none;
     height: var(--mobile-hero-video-height);
+    overflow: hidden;
+    position: relative;
   }
+  /* Sizing/position is computed and applied by JS below (zoom-to-region
+     technique) - this is just a safe default before that JS runs. */
   .hero-backgroundvideo video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 }
 
-/* Extra breathing room so the footer stays below the fold until the
-   user has scrolled through the hero content - no scrolljacking, just
-   added space. Viewport-relative so it scales reasonably across
-   device heights rather than a fixed px guess. */
-.page-wrapper {
-  padding-bottom: 18vh;
+/* Navbar's left padding matched to the hero container's own padding
+   (2.25rem -> 2rem), so the logo lines up with the hero content's
+   left edge using a plain CSS value instead of a JS-measured nudge. */
+.navbar-container {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+/* .hero-contain itself drops to 0 padding at this breakpoint (its own
+   pre-existing rule) - mirrored here so the match holds there too. */
+@media screen and (max-width: 991px) {
+  .navbar-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 
 .message-textarea {
@@ -382,52 +399,59 @@ document.querySelectorAll('.scramble-text').forEach(target => {
 </script>
 <script>
 (() => {
-  // Aligns the brand logo's left edge to exactly match the hero
-  // paragraph's left text edge, measured live rather than hardcoded
-  // per breakpoint - so it holds at any viewport width, not just the
-  // ones Webflow's compiled CSS happened to define media queries for.
-  const logo = document.getElementById('brand-logo');
-  const target = document.querySelector('.text-block-9');
-  if (!logo || !target) return;
-
-  const baseMarginLeft = parseFloat(getComputedStyle(logo).marginLeft) || 0;
-
-  const sync = () => {
-    logo.style.marginLeft = '0px';
-    const logoLeft = logo.getBoundingClientRect().left;
-    const targetLeft = target.getBoundingClientRect().left;
-    const delta = targetLeft - logoLeft;
-    logo.style.marginLeft = (baseMarginLeft + delta) + 'px';
-  };
-
-  sync();
-  document.fonts.ready.then(sync);
-
-  let resizeTimer;
-  addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(sync, 100);
-  });
-})();
-</script>
-<script>
-(() => {
   // On mobile, the hero video (standing in for the removed navbar) is
   // sized to match the footer's actual height on that device, rather
   // than a fixed guess - re-synced on resize/orientation change.
   const footer = document.querySelector('.footer-section');
-  if (!footer) return;
+  const wrap = document.querySelector('.hero-backgroundvideo');
+  const video = wrap && wrap.querySelector('video');
+  if (!footer || !wrap || !video) return;
+
+  // Source video is 1280x720 with the actual footage letterboxed into
+  // a thin band (native pixels y:286-433) rather than filling the
+  // frame, and a "[houdy's]" text banner starting around x:533 (solid
+  // color) with the "[" character itself around x:770+. Zooming into
+  // native region x:[0,640] (the left half, avoiding the bracket
+  // entirely with margin to spare) y:[286,433] and scaling by
+  // whichever axis needs more zoom to fully cover the container
+  // guarantees both "no black bars" and "never shows the bracket",
+  // for any container aspect ratio.
+  const NATIVE_W = 1280, NATIVE_H = 720;
+  const ROI = { x0: 0, y0: 286, x1: 640, y1: 433 };
+  const roiW = ROI.x1 - ROI.x0, roiH = ROI.y1 - ROI.y0;
+  const roiCx = (ROI.x0 + ROI.x1) / 2, roiCy = (ROI.y0 + ROI.y1) / 2;
+
+  const applyZoom = () => {
+    const rect = wrap.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const scale = Math.max(rect.width / roiW, rect.height / roiH);
+    const renderedW = NATIVE_W * scale;
+    const renderedH = NATIVE_H * scale;
+    const left = rect.width / 2 - roiCx * scale;
+    const top = rect.height / 2 - roiCy * scale;
+    video.style.width = renderedW + 'px';
+    video.style.height = renderedH + 'px';
+    video.style.objectFit = '';
+    video.style.transform = `translate(${left}px, ${top}px)`;
+  };
 
   const sync = () => {
-    if (window.innerWidth > 767) return;
+    if (window.innerWidth > 767) {
+      video.style.width = '';
+      video.style.height = '';
+      video.style.transform = '';
+      return;
+    }
     const h = footer.getBoundingClientRect().height;
     if (h > 0) {
       document.documentElement.style.setProperty('--mobile-hero-video-height', h + 'px');
     }
+    applyZoom();
   };
 
   sync();
   document.fonts.ready.then(sync);
+  video.addEventListener('loadedmetadata', sync);
 
   let resizeTimer;
   addEventListener('resize', () => {
