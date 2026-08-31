@@ -135,6 +135,35 @@ h1._w-div {
   order: 2;
 }
 
+/* Mobile (<=767px, Webflow's Mobile Landscape + Mobile Portrait
+   tiers): remove the navbar entirely and let the hero video take its
+   place, enlarged to roughly match the footer's height (synced live
+   via JS below - --mobile-hero-video-height is a fallback default).
+   Also strips the thin blue accent borders on .hero_grid/.y-div that
+   were reading as stray dark lines at this size. */
+:root {
+  --mobile-hero-video-height: 174px;
+}
+@media screen and (max-width: 767px) {
+  .navbar {
+    display: none;
+  }
+  .hero_grid {
+    border: none;
+  }
+  .y-div {
+    border: none;
+  }
+  .hero-backgroundvideo,
+  .background-video-4 {
+    max-height: none;
+    height: var(--mobile-hero-video-height);
+  }
+  .hero-backgroundvideo video {
+    height: 100%;
+  }
+}
+
 .message-textarea {
   resize: vertical !important;
   min-height: 68px;
@@ -361,6 +390,32 @@ document.querySelectorAll('.scramble-text').forEach(target => {
     const targetLeft = target.getBoundingClientRect().left;
     const delta = targetLeft - logoLeft;
     logo.style.marginLeft = (baseMarginLeft + delta) + 'px';
+  };
+
+  sync();
+  document.fonts.ready.then(sync);
+
+  let resizeTimer;
+  addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(sync, 100);
+  });
+})();
+</script>
+<script>
+(() => {
+  // On mobile, the hero video (standing in for the removed navbar) is
+  // sized to match the footer's actual height on that device, rather
+  // than a fixed guess - re-synced on resize/orientation change.
+  const footer = document.querySelector('.footer-section');
+  if (!footer) return;
+
+  const sync = () => {
+    if (window.innerWidth > 767) return;
+    const h = footer.getBoundingClientRect().height;
+    if (h > 0) {
+      document.documentElement.style.setProperty('--mobile-hero-video-height', h + 'px');
+    }
   };
 
   sync();
