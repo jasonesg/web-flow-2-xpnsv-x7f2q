@@ -164,6 +164,14 @@ h1._w-div {
   }
 }
 
+/* Extra breathing room so the footer stays below the fold until the
+   user has scrolled through the hero content - no scrolljacking, just
+   added space. Viewport-relative so it scales reasonably across
+   device heights rather than a fixed px guess. */
+.page-wrapper {
+  padding-bottom: 18vh;
+}
+
 .message-textarea {
   resize: vertical !important;
   min-height: 68px;
