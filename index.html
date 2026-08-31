@@ -254,29 +254,46 @@ document.querySelectorAll('.scramble-text').forEach(target => {
     'Text-Box': 'entry.677414797'
   };
 
+  // Hidden iframe target so the real form POST doesn't navigate the page away.
+  let hiddenFrame = document.getElementById('gform-hidden-iframe');
+  if (!hiddenFrame) {
+    hiddenFrame = document.createElement('iframe');
+    hiddenFrame.id = 'gform-hidden-iframe';
+    hiddenFrame.name = 'gform-hidden-iframe';
+    hiddenFrame.style.display = 'none';
+    hiddenFrame.title = 'hidden';
+    document.body.appendChild(hiddenFrame);
+  }
+
   btn.addEventListener('click', () => {
     if (!form.reportValidity()) return;
 
-    const formData = new FormData();
+    // Build a REAL <form> and submit it (not fetch) so Google sees a normal
+    // browser form submission rather than a script-initiated request.
+    const gform = document.createElement('form');
+    gform.action = GOOGLE_FORM_ACTION;
+    gform.method = 'POST';
+    gform.target = 'gform-hidden-iframe';
+    gform.style.display = 'none';
+
     Object.entries(FIELD_MAP).forEach(([inputName, entryId]) => {
       const el = form.elements[inputName];
-      if (el) formData.append(entryId, el.value);
+      if (!el) return;
+      const hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = entryId;
+      hidden.value = el.value;
+      gform.appendChild(hidden);
     });
 
-    btn.disabled = true;
-    const originalValue = btn.value;
-    btn.value = btn.dataset.wait || 'Please wait...';
+    document.body.appendChild(gform);
+    gform.submit();
+    gform.remove();
 
-    fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData })
-      .catch(() => {})
-      .finally(() => {
-        const wrapper = form.closest('.form-block-3') || form.parentElement;
-        form.style.display = 'none';
-        const done = wrapper.querySelector('.w-form-done');
-        if (done) done.style.display = 'block';
-        btn.disabled = false;
-        btn.value = originalValue;
-      });
+    const wrapper = form.closest('.form-block-3') || form.parentElement;
+    form.style.display = 'none';
+    const done = wrapper.querySelector('.w-form-done');
+    if (done) done.style.display = 'block';
   });
 })();
 </script></body>
