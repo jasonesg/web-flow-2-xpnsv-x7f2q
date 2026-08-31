@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jasonesg.github.io/web-flow-2-xpnsv-x7f2q/sitemap.xml
