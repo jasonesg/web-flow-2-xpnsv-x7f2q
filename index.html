@@ -117,6 +117,24 @@ h1._w-div {
   font-weight: 600 !important;
 }
 
+/* Footer text position matched to pg-lang.com: stacked and
+   left-aligned (social links above the copyright line) instead of
+   spread across the row. Background/colors intentionally left as-is. */
+.footer4_top-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 12px;
+}
+.footer4_top-wrapper .nav-wrap {
+  order: 1;
+  justify-content: flex-start;
+}
+.footer4_top-wrapper .footer-text {
+  order: 2;
+}
+
 .message-textarea {
   resize: vertical !important;
   min-height: 68px;
