@@ -117,22 +117,14 @@ h1._w-div {
   font-weight: 600 !important;
 }
 
-/* Footer text position matched to pg-lang.com: stacked and
-   left-aligned (social links above the copyright line) instead of
-   spread across the row. Background/colors intentionally left as-is. */
+/* Footer: copyright text justified left, icon links justified right.
+   Icon-to-icon spacing already matches the navbar links naturally -
+   both use the same .hover-link class (same 11.9px padding). */
 .footer4_top-wrapper {
   display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  justify-content: flex-start !important;
-  gap: 12px;
-}
-.footer4_top-wrapper .nav-wrap {
-  order: 1;
-  justify-content: flex-start;
-}
-.footer4_top-wrapper .footer-text {
-  order: 2;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 }
 
 /* Mobile (<=767px, Webflow's Mobile Landscape + Mobile Portrait
@@ -417,18 +409,30 @@ document.querySelectorAll('.scramble-text').forEach(target => {
   // guarantees both "no black bars" and "never shows the bracket",
   // for any container aspect ratio.
   const NATIVE_W = 1280, NATIVE_H = 720;
-  const ROI = { x0: 0, y0: 286, x1: 640, y1: 433 };
-  const roiW = ROI.x1 - ROI.x0, roiH = ROI.y1 - ROI.y0;
-  const roiCx = (ROI.x0 + ROI.x1) / 2, roiCy = (ROI.y0 + ROI.y1) / 2;
+  // Mobile (navbar hidden, video enlarged in its place): left half
+  // only, well clear of the "[houdy's]" bracket banner. Everywhere
+  // else (navbar still visible, video stays its original thin strip):
+  // full width - the bracket is part of the intended design there,
+  // only the vertical letterboxing needs cropping out.
+  const ROI_MOBILE = { x0: 0, y0: 286, x1: 640, y1: 433 };
+  const ROI_DEFAULT = { x0: 0, y0: 286, x1: 1280, y1: 433 };
 
-  const applyZoom = () => {
+  const applyZoom = (roi) => {
     const rect = wrap.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
+    const roiW = roi.x1 - roi.x0, roiH = roi.y1 - roi.y0;
+    const roiCx = (roi.x0 + roi.x1) / 2, roiCy = (roi.y0 + roi.y1) / 2;
     const scale = Math.max(rect.width / roiW, rect.height / roiH);
     const renderedW = NATIVE_W * scale;
     const renderedH = NATIVE_H * scale;
     const left = rect.width / 2 - roiCx * scale;
     const top = rect.height / 2 - roiCy * scale;
+    // Webflow's base .w-background-video > video rule sets
+    // inset:-100% + margin:auto (a centering trick) - neutralized here
+    // so the translate() math below can assume a plain top:0/left:0
+    // starting point.
+    video.style.inset = '0';
+    video.style.margin = '0';
     video.style.width = renderedW + 'px';
     video.style.height = renderedH + 'px';
     video.style.objectFit = '';
@@ -436,28 +440,25 @@ document.querySelectorAll('.scramble-text').forEach(target => {
   };
 
   const sync = () => {
-    if (window.innerWidth > 767) {
-      video.style.width = '';
-      video.style.height = '';
-      video.style.transform = '';
-      return;
+    const isMobile = window.innerWidth <= 767;
+    if (isMobile) {
+      const h = footer.getBoundingClientRect().height;
+      if (h > 0) {
+        document.documentElement.style.setProperty('--mobile-hero-video-height', h + 'px');
+      }
     }
-    const h = footer.getBoundingClientRect().height;
-    if (h > 0) {
-      document.documentElement.style.setProperty('--mobile-hero-video-height', h + 'px');
-    }
-    applyZoom();
+    applyZoom(isMobile ? ROI_MOBILE : ROI_DEFAULT);
   };
 
+  // Webflow's own runtime continuously re-asserts its own inline
+  // styles on .w-background-video elements (confirmed: setting these
+  // once, even after load/with retries, gets silently reverted within
+  // moments - not a one-time init race, and not something
+  // requestAnimationFrame can reliably out-pace either). Polling on an
+  // interval is the reliable way to keep winning that fight; recomputes
+  // from live layout each time so it stays correct through resizes too.
   sync();
-  document.fonts.ready.then(sync);
-  video.addEventListener('loadedmetadata', sync);
-
-  let resizeTimer;
-  addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(sync, 100);
-  });
+  setInterval(sync, 200);
 })();
 </script>
 <script>
