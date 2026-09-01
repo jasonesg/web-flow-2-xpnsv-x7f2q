@@ -165,6 +165,24 @@ h1._w-div {
     height: 100%;
     object-fit: cover;
   }
+  /* Excess vertical spacing that was reading as an "obnoxious white
+     gap" between the form card and the footer - .section-herobox's
+     native 64px bottom padding (a pre-existing Webflow rule) and
+     .hero-contain's 48px bottom margin were the main contributors. */
+  .section-herobox {
+    padding-bottom: 16px !important;
+  }
+  .hero-contain {
+    margin-bottom: 16px !important;
+  }
+  /* The footer's own divider line had 32px margin above/below just
+     for a 1px rule - shrinking this also shrinks the footer's overall
+     height, which the hero video is synced to match (so this directly
+     addresses the video looking oversized too, not just the gap). */
+  .divider-horizontal {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
 }
 /* >=991px (desktop): bias the hero video toward the top of the
    screen instead of the original 96px top margin, and tighten the
