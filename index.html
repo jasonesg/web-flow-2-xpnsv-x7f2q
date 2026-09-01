@@ -185,11 +185,14 @@ h1._w-div {
   }
   /* Mobile Safari's floating URL bar reveals extra space below the
      page content when scrolled to the bottom (and in the general
-     overscroll/safe-area region) - that gap shows through as body's
-     own background-color, not the footer's. body was #f1f1f1 (light
-     gray) against the footer's dark #2c2c2c, creating a visible pale
-     seam right where the browser chrome overlaps the footer. Matching
-     them means that gap is invisible regardless of exact pixel sizing. */
+     overscroll region) - that gap paints whichever of html/body
+     actually has a background-color there. Confirmed via the compiled
+     stylesheet that <html> had NO background-color set at all (falls
+     through to the browser's own default white canvas) even though
+     <body> did - setting body alone wasn't enough, html needed it too.
+     Matches the working example the user pointed to (Digital Roots
+     Studio, which sets its own root background to its footer color). */
+  html,
   body {
     background-color: #2c2c2c;
   }
