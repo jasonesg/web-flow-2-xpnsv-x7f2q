@@ -247,6 +247,7 @@ h1._w-div {
 .footer-nav-columns {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   column-gap: 5rem;
   row-gap: 2rem;
   width: 100%;
@@ -269,13 +270,16 @@ h1._w-div {
   margin-left: -.85em;
 }
 .footer-wordmark {
+  display: block;
   width: 100%;
   font-family: Geist, sans-serif;
   font-weight: 700;
   color: #f1f1f1;
-  font-size: clamp(2.75rem, 13vw, 10rem);
+  white-space: nowrap;
   line-height: .85;
   letter-spacing: -.02em;
+  text-align: center;
+  font-size: 12vw; /* pre-JS fallback - exact fit computed below */
   margin-top: 2.5rem;
   user-select: none;
 }
@@ -283,9 +287,6 @@ h1._w-div {
   .footer-nav-columns {
     column-gap: 3rem;
     row-gap: 1.75rem;
-  }
-  .footer-wordmark {
-    font-size: clamp(2.5rem, 17vw, 6rem);
   }
 }
 </style></head>
@@ -563,6 +564,42 @@ document.querySelectorAll('.scramble-text').forEach(target => {
   // from live layout each time so it stays correct through resizes too.
   sync();
   setInterval(sync, 200);
+})();
+</script>
+<script>
+(() => {
+  // The giant footer wordmark's font-size isn't set in CSS - it's
+  // solved for here so the rendered text width exactly matches the
+  // container's width (same left/right bounds as the copyright text
+  // and social icons above it), same effect as granola.ai's footer
+  // wordmark spanning edge to edge rather than being a fixed size.
+  const el = document.querySelector('.footer-wordmark');
+  if (!el) return;
+  const REF_SIZE = 100;
+
+  const fit = () => {
+    // Measured from the parent, not el itself - el's own width toggles
+    // below (needed to unlock its true shrink-to-fit content width for
+    // measuring) would otherwise throw off the container-width reading.
+    const containerWidth = el.parentElement.clientWidth;
+    if (!containerWidth) return;
+    el.style.fontSize = REF_SIZE + 'px';
+    el.style.display = 'inline-block';
+    el.style.width = 'auto';
+    const naturalWidth = el.scrollWidth;
+    el.style.display = 'block';
+    el.style.width = '100%';
+    if (!naturalWidth) return;
+    el.style.fontSize = (containerWidth / naturalWidth * REF_SIZE) + 'px';
+  };
+
+  fit();
+  document.fonts.ready.then(fit);
+  let resizeTimer;
+  addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fit, 100);
+  });
 })();
 </script>
 <script>
