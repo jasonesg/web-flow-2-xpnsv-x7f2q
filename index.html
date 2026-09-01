@@ -127,44 +127,10 @@ h1._w-div {
   justify-content: space-between !important;
 }
 
-/* Mobile (<=991px - raised from an earlier 968px cutoff after the
-   navbar was found cramped right up against content at 991px):
-   remove the navbar entirely and let the hero video take its place,
-   enlarged to roughly match the footer's height (synced live via JS
-   below - --mobile-hero-video-height is a fallback default) and
-   hugging the left/right edges flush (no border/padding insets). */
-:root {
-  --mobile-hero-video-height: 174px;
-}
+/* Mobile (<=991px): the navbar stays visible (no hide/enlarge-video
+   treatment). Only the footer whitespace/background fixes below remain
+   in effect at this breakpoint. */
 @media screen and (max-width: 991px) {
-  .navbar {
-    display: none;
-  }
-  .hero_grid {
-    border: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .y-div {
-    border: none;
-  }
-  .hero-backgroundvideo,
-  .background-video-4 {
-    max-height: none;
-    height: var(--mobile-hero-video-height);
-    overflow: hidden;
-    position: relative;
-  }
-  /* Sizing/position is computed and applied by JS below (zoom-to-region
-     technique) - this is just a safe default before that JS runs. */
-  .hero-backgroundvideo video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
   /* Excess vertical spacing that was reading as an "obnoxious white
      gap" between the form card and the footer - .section-herobox's
      native 64px bottom padding (a pre-existing Webflow rule) and
@@ -176,9 +142,7 @@ h1._w-div {
     margin-bottom: 16px !important;
   }
   /* The footer's own divider line had 32px margin above/below just
-     for a 1px rule - shrinking this also shrinks the footer's overall
-     height, which the hero video is synced to match (so this directly
-     addresses the video looking oversized too, not just the gap). */
+     for a 1px rule. */
   .divider-horizontal {
     margin-top: 8px !important;
     margin-bottom: 8px !important;
@@ -204,14 +168,6 @@ h1._w-div {
   .hero-contain {
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
-  }
-}
-/* Small breathing room under the contact form card, but only when the
-   navbar is actually hidden (<=991px) AND the viewport is genuinely
-   portrait/vertical - not just narrow. */
-@media screen and (max-width: 991px) and (orientation: portrait) {
-  .form-block-3 {
-    margin-bottom: 24px;
   }
 }
 
@@ -492,37 +448,26 @@ document.querySelectorAll('.scramble-text').forEach(target => {
 </script>
 <script>
 (() => {
-  // On mobile, the hero video (standing in for the removed navbar) is
-  // sized to match the footer's actual height on that device, rather
-  // than a fixed guess - re-synced on resize/orientation change.
-  const footer = document.querySelector('.footer-section');
+  // Fixes black letterboxing bars in the hero video: the source is
+  // 1280x720 with the actual footage confined to a thin band (native
+  // pixels y:286-433) rather than filling the frame. Zooming into that
+  // native region and scaling by whichever axis needs more zoom to
+  // fully cover the container guarantees no black bars, for any
+  // container aspect ratio. Applies uniformly at every breakpoint -
+  // the video keeps its normal thin-strip appearance next to the
+  // (always-visible) navbar.
   const wrap = document.querySelector('.hero-backgroundvideo');
   const video = wrap && wrap.querySelector('video');
-  if (!footer || !wrap || !video) return;
+  if (!wrap || !video) return;
 
-  // Source video is 1280x720 with the actual footage letterboxed into
-  // a thin band (native pixels y:286-433) rather than filling the
-  // frame, and a "[houdy's]" text banner starting around x:533 (solid
-  // color) with the "[" character itself around x:770+. Zooming into
-  // native region x:[0,640] (the left half, avoiding the bracket
-  // entirely with margin to spare) y:[286,433] and scaling by
-  // whichever axis needs more zoom to fully cover the container
-  // guarantees both "no black bars" and "never shows the bracket",
-  // for any container aspect ratio.
   const NATIVE_W = 1280, NATIVE_H = 720;
-  // Mobile (navbar hidden, video enlarged in its place): left half
-  // only, well clear of the "[houdy's]" bracket banner. Everywhere
-  // else (navbar still visible, video stays its original thin strip):
-  // full width - the bracket is part of the intended design there,
-  // only the vertical letterboxing needs cropping out.
-  const ROI_MOBILE = { x0: 0, y0: 286, x1: 640, y1: 433 };
-  const ROI_DEFAULT = { x0: 0, y0: 286, x1: 1280, y1: 433 };
+  const ROI = { x0: 0, y0: 286, x1: 1280, y1: 433 };
 
-  const applyZoom = (roi) => {
+  const applyZoom = () => {
     const rect = wrap.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
-    const roiW = roi.x1 - roi.x0, roiH = roi.y1 - roi.y0;
-    const roiCx = (roi.x0 + roi.x1) / 2, roiCy = (roi.y0 + roi.y1) / 2;
+    const roiW = ROI.x1 - ROI.x0, roiH = ROI.y1 - ROI.y0;
+    const roiCx = (ROI.x0 + ROI.x1) / 2, roiCy = (ROI.y0 + ROI.y1) / 2;
     const scale = Math.max(rect.width / roiW, rect.height / roiH);
     const renderedW = NATIVE_W * scale;
     const renderedH = NATIVE_H * scale;
@@ -540,21 +485,6 @@ document.querySelectorAll('.scramble-text').forEach(target => {
     video.style.transform = `translate(${left}px, ${top}px)`;
   };
 
-  const themeColorMeta = document.getElementById('theme-color-meta');
-  const sync = () => {
-    const isMobile = window.innerWidth <= 991;
-    if (themeColorMeta) {
-      themeColorMeta.setAttribute('content', isMobile ? '#2c2c2c' : '#f1f1f1');
-    }
-    if (isMobile) {
-      const h = footer.getBoundingClientRect().height;
-      if (h > 0) {
-        document.documentElement.style.setProperty('--mobile-hero-video-height', h + 'px');
-      }
-    }
-    applyZoom(isMobile ? ROI_MOBILE : ROI_DEFAULT);
-  };
-
   // Webflow's own runtime continuously re-asserts its own inline
   // styles on .w-background-video elements (confirmed: setting these
   // once, even after load/with retries, gets silently reverted within
@@ -562,8 +492,8 @@ document.querySelectorAll('.scramble-text').forEach(target => {
   // requestAnimationFrame can reliably out-pace either). Polling on an
   // interval is the reliable way to keep winning that fight; recomputes
   // from live layout each time so it stays correct through resizes too.
-  sync();
-  setInterval(sync, 200);
+  applyZoom();
+  setInterval(applyZoom, 200);
 })();
 </script>
 <script>
