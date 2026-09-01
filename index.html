@@ -183,6 +183,16 @@ h1._w-div {
     margin-top: 8px !important;
     margin-bottom: 8px !important;
   }
+  /* Mobile Safari's floating URL bar reveals extra space below the
+     page content when scrolled to the bottom (and in the general
+     overscroll/safe-area region) - that gap shows through as body's
+     own background-color, not the footer's. body was #f1f1f1 (light
+     gray) against the footer's dark #2c2c2c, creating a visible pale
+     seam right where the browser chrome overlaps the footer. Matching
+     them means that gap is invisible regardless of exact pixel sizing. */
+  body {
+    background-color: #2c2c2c;
+  }
 }
 /* >=991px (desktop): bias the hero video toward the top of the
    screen instead of the original 96px top margin, and tighten the
