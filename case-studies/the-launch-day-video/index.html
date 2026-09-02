@@ -281,30 +281,32 @@ html, body {
    dropped as its own column per instruction; those nav labels are
    relocated into the right column's "Related Groups"-style box. The
    real navbar stands in for the reference's own top bar. */
+/* The title bar is now flush inside .retro-outer's own border - same
+   relationship as .retro-box-header sitting flush inside .retro-box
+   (copied directly from that already-working pattern, rather than
+   trying to derive it from h1._w-div's padding/margin split, which
+   was really about ITS relationship to the video above it on the
+   homepage - not applicable here since there's no video). No gap on
+   any side between the bar and the border it sits inside. */
 .retro-titlebar {
   font-size: 13px;
   font-weight: 700;
   line-height: 1.4;
   color: #f1f1f1;
   background-color: #4b6da7;
-  /* h1._w-div (the "WELCOME TO HOUDY'S" bar) uses padding:4px 20px
-     for its own internal spacing, plus margin-top:0/margin-bottom:8px
-     for the gap after it. Top/bottom here matches THAT margin (not
-     its padding) - left/right still matches its padding. */
-  padding: 0 20px;
-  margin-top: 0;
-  margin-bottom: 8px;
+  padding: 4px 10px;
 }
-/* Wraps the two-column grid below the title bar, mirroring
-   .hero_grid's own border (1px solid #4b6da7, no top border since
-   the bar above it caps the box) - .cell-block-one on the homepage
-   ALSO keeps its own separate border nested inside that outer one, so
-   individual .retro-box borders below are kept rather than removed. */
+/* Wraps the title bar + the two-column grid in one border, mirroring
+   .hero_grid's own border (1px solid #4b6da7) - .cell-block-one on
+   the homepage ALSO keeps its own separate border nested inside that
+   outer one, so individual .retro-box borders below are kept rather
+   than removed. */
 .retro-outer {
   border: 1px solid #4b6da7;
-  border-top-style: none;
-  padding: 1.5rem;
   margin-bottom: 4rem;
+}
+.retro-outer-body {
+  padding: 1.5rem;
 }
 .retro-grid {
   display: grid;
