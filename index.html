@@ -154,11 +154,10 @@ h1._w-div {
      stylesheet that <html> had NO background-color set at all (falls
      through to the browser's own default white canvas) even though
      <body> did - setting body alone wasn't enough, html needed it too.
-     Matches the footer's own background (now white, matching
-     granola.ai's), so the gap blends in. */
+     Matches the footer's own background, so the gap blends in. */
   html,
   body {
-    background-color: #ffffff !important;
+    background-color: #f1f1f1 !important;
   }
 }
 /* >=991px (desktop): bias the hero video toward the top of the
@@ -243,13 +242,12 @@ h1._w-div {
   }
 }
 
-/* granola.ai color match: their footer sits on a plain white
-   background (body's own bg-color, confirmed via getComputedStyle -
-   rgb(255,255,255)) with a giant black wordmark (their SVG logo's
-   fill, confirmed the same way - rgb(0,0,0)). Same palette here, but
-   #2c2c2c on the wordmark instead of their pure black. */
+/* Footer background matched to the main page's own background
+   (#f1f1f1, same as .body/.section-herobox) instead of granola's pure
+   white, so the footer doesn't read as a different-colored section
+   from the rest of the page. */
 .footer-section {
-  background-color: #ffffff;
+  background-color: #f1f1f1;
   background-image: none;
 }
 .footer-wordmark {
