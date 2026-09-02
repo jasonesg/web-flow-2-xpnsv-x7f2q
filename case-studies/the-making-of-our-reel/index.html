@@ -212,6 +212,39 @@ html, body {
   border: 1px solid #4b6da7;
   padding: 1.5rem;
 }
+/* Fixed 600x800 (3:4 portrait) frame for the photo box, same shape on
+   every article whether it holds one static photo or cycles through a
+   dedicated slideshow - see .article-photo-frame img.is-active below. */
+.article-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+.article-photo-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.article-photo-frame img.is-active {
+  opacity: 1;
+}
+/* hero-poster.jpg's actual footage is a thin horizontal band baked
+   into the left half of the frame (the "[houdy's]" text banner starts
+   around its horizontal center) - same region .footer-reveal-tile's
+   own crop already targets. Center-cropping a 16:9 source down to a
+   3:4 box would otherwise land mid-banner; biasing left keeps the
+   footage in frame for the 5 case studies still using it as a
+   placeholder photo. Dedicated per-article photos (currently just
+   the-launch-day-video's 4) don't get this - they're candid crowd
+   shots with no such bias, so they stay on the default center crop. */
+.article-photo-frame img.is-poster-crop {
+  object-position: left center;
+}
 .article-eyebrow {
   display: inline-block;
   font-size: 14px;
@@ -449,7 +482,7 @@ html, body {
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Making of Our Reel","description":"Behind the scenes on Houdy's own homepage reel: a one-afternoon, one-location shoot built around honesty instead of polish.","author":{"@type":"Person","name":"Daniel Muller"},"publisher":{"@type":"Organization","name":"Houdy's Video Company"},"mainEntityOfPage":"https://jasonesg.github.io/web-flow-2-xpnsv-x7f2q/case-studies/the-making-of-our-reel/"}</script></head>
-<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div data-nav-theme="light"><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">BEHIND THE SCENES</div></div><div class="article-wrap"><div class="article-grid"><div class="retro-box article-photo"><div class="retro-box-header">Daniel Muller</div><img src="../../assets/hero-poster.jpg" alt="Daniel Muller on set for Houdy's Video Company" class="retro-picture"/></div><div class="article-main"><h1 class="article-title">The Making of Our Reel</h1><p class="article-dek">We turned a clapperboard, a cramped office, and way too much coffee into the video you're looking at right now.</p><div class="article-meta">Daniel Muller · San Francisco</div><div class="article-body"><p>Making a reel <strong>for</strong> a video company turned out to be way harder than making one for a client. When it's someone else's story, you know exactly what you're chasing. When it's yours, every option is on the table, and every option feels wrong at 11pm.</p>
+<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div data-nav-theme="light"><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">BEHIND THE SCENES</div></div><div class="article-wrap"><div class="article-grid"><div class="retro-box article-photo"><div class="retro-box-header">Daniel Muller</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Daniel Muller on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div><div class="article-main"><h1 class="article-title">The Making of Our Reel</h1><p class="article-dek">We turned a clapperboard, a cramped office, and way too much coffee into the video you're looking at right now.</p><div class="article-meta">Daniel Muller · San Francisco</div><div class="article-body"><p>Making a reel <strong>for</strong> a video company turned out to be way harder than making one for a client. When it's someone else's story, you know exactly what you're chasing. When it's yours, every option is on the table, and every option feels wrong at 11pm.</p>
 
 <p>So we gave ourselves a rule: <strong>one location, one afternoon, and whatever gear was already charged.</strong> No call sheet, no wardrobe, no drone. Just the clapperboard we already had lying around and a desk that hadn't been cleaned since the founding.</p>
 
@@ -542,6 +575,20 @@ document.querySelectorAll('.scramble-text').forEach(target => {
     if (!ticking) { requestAnimationFrame(update); ticking = true; }
   }, { passive: true });
   update();
+})();
+</script>
+<script>
+(() => {
+  document.querySelectorAll('.article-photo-frame').forEach(frame => {
+    const imgs = frame.querySelectorAll('img');
+    if (imgs.length < 2) return;
+    let i = 0;
+    setInterval(() => {
+      imgs[i].classList.remove('is-active');
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add('is-active');
+    }, 4000);
+  });
 })();
 </script>
 <script>
