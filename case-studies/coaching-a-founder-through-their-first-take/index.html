@@ -287,10 +287,13 @@ html, body {
   line-height: 1.4;
   color: #f1f1f1;
   background-color: #4b6da7;
-  /* Matches h1._w-div's own padding (the "WELCOME TO HOUDY'S" bar
-     near the homepage's hero video), instead of an arbitrary value. */
-  padding: 4px 20px;
-  margin: 0;
+  /* h1._w-div (the "WELCOME TO HOUDY'S" bar) uses padding:4px 20px
+     for its own internal spacing, plus margin-top:0/margin-bottom:8px
+     for the gap after it. Top/bottom here matches THAT margin (not
+     its padding) - left/right still matches its padding. */
+  padding: 0 20px;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 /* Wraps the two-column grid below the title bar, mirroring
    .hero_grid's own border (1px solid #4b6da7, no top border since
