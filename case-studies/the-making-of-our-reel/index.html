@@ -258,24 +258,24 @@ html, body {
    no styling of its own, so pages without those extras (everything
    but the-launch-day-video, for now) render identically to before. */
 .article-photo-col > .retro-box,
-.article-photo-col > .retro-infobox,
-.article-photo-col > .article-photo-caption {
+.article-photo-col > .retro-infobox {
   margin-bottom: 1.5rem;
 }
 .article-photo-col > :last-child {
   margin-bottom: 0;
 }
-/* Pulled in tight under the photo box itself (not the standard 1.5rem
-   box rhythm) - matches the old Facebook profile's name/location line
-   sitting flush under the profile photo, left-aligned rather than
-   centered like a typical caption. */
-.article-photo-col > .retro-box.article-photo {
-  margin-bottom: .35rem;
-}
+/* Sits inside the photo box itself, under the slideshow, styled as a
+   label row - same divider color, padding, and bold-label treatment
+   as .retro-infobox-row/.retro-infobox-label above, so it reads like
+   one more fact-box row rather than a separate floating caption. */
 .article-photo-caption {
-  font-family: Geist, sans-serif;
+  border-top: 1px solid rgba(75, 109, 167, .25);
+  padding: 6px 10px;
+  font-family: system-ui, -apple-system, sans-serif;
   font-size: 13px;
-  color: #928e88;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #2c2c2c;
   text-align: left;
 }
 /* Wikipedia-infobox-style fact table (see the Million Dollar Homepage
