@@ -147,6 +147,13 @@ h1._w-div {
     margin-top: 8px !important;
     margin-bottom: 8px !important;
   }
+  /* granola.ai's own wordmark bottom spacing widens at mobile widths
+     (their pb-20 vs md:pb-12 - 80px vs 48px). !important since this
+     rule's source position is before .footer-wordmark's own base
+     rule, which would otherwise win the (48px) tie on source order. */
+  .footer-wordmark {
+    margin-bottom: 80px !important;
+  }
   /* Mobile Safari's floating URL bar reveals extra space below the
      page content when scrolled to the bottom (and in the general
      overscroll region) - that gap paints whichever of html/body
@@ -250,6 +257,14 @@ h1._w-div {
   background-color: #f1f1f1;
   background-image: none;
 }
+/* The existing .divider-horizontal (a pre-existing Webflow element,
+   already sitting right at the top of the footer's content) was
+   #f1f1f1 at 10% opacity - invisible now that it sits on a #f1f1f1
+   background instead of the old dark one. Recolored to a subtle dark
+   line instead of introducing a new element. */
+.divider-horizontal {
+  background-color: rgba(44, 44, 44, .15) !important;
+}
 .footer-wordmark {
   display: block;
   width: 100%;
@@ -262,6 +277,10 @@ h1._w-div {
   text-align: center;
   font-size: 12vw; /* pre-JS fallback - exact fit computed below */
   margin-top: 2.5rem;
+  /* Matches granola.ai's own wordmark bottom spacing (their wrapper's
+     computed padding-bottom, confirmed via getComputedStyle: 48px at
+     desktop widths, 80px at mobile - see the media query below). */
+  margin-bottom: 48px;
   user-select: none;
 }
 </style></head>
