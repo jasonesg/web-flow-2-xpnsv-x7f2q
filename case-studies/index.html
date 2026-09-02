@@ -190,9 +190,27 @@ html, body {
 }
 .article-wrap {
   width: 100%;
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 0 2rem 4rem;
+}
+/* Photo (left) + copy (right), same gap/align-items as .retro-grid on
+   the case-studies index, but with the column ratio flipped since the
+   photo sits on the left here instead of the right. */
+.article-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .25rem;
+  align-items: start;
+}
+@media screen and (min-width: 768px) {
+  .article-grid {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+.article-main {
+  border: 1px solid #4b6da7;
+  padding: 1.5rem;
 }
 .article-eyebrow {
   display: inline-block;
