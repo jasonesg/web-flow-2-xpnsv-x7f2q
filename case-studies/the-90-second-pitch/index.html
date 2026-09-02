@@ -269,7 +269,9 @@ html, body {
    as .retro-infobox-row/.retro-infobox-label above, so it reads like
    one more fact-box row rather than a separate floating caption. */
 .article-photo-caption {
-  border-top: 1px solid rgba(75, 109, 167, .25);
+  /* Matches .footer-section's own border-top color on the homepage,
+     not the blue divider used elsewhere on this page. */
+  border-top: 1px solid rgba(44, 44, 44, .15);
   padding: 6px 10px;
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 13px;
