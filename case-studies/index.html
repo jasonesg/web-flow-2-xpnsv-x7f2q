@@ -245,6 +245,54 @@ html, body {
 .article-photo-frame img.is-poster-crop {
   object-position: left center;
 }
+/* Stacks the photo box with the optional Relevant Links / infobox
+   below it, all in the same left grid column - a plain wrapper with
+   no styling of its own, so pages without those extras (everything
+   but the-launch-day-video, for now) render identically to before. */
+.article-photo-col > .retro-box,
+.article-photo-col > .retro-infobox {
+  margin-bottom: 1.5rem;
+}
+.article-photo-col > :last-child {
+  margin-bottom: 0;
+}
+/* Wikipedia-infobox-style fact table (see the Million Dollar Homepage
+   reference) - label/value rows with a thin divider instead of
+   .retro-box-body's prose padding, kept inside the same blue-border +
+   header-bar chrome as every other box on the page. */
+.retro-infobox {
+  border: 1px solid #4b6da7;
+  background-color: #f1f1f1;
+}
+.retro-infobox-row {
+  display: flex;
+  gap: 8px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(75, 109, 167, .25);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.retro-infobox-row:last-child {
+  border-bottom: none;
+}
+.retro-infobox-label {
+  width: 40%;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+.retro-infobox-value {
+  color: #363636;
+  word-break: break-word;
+}
+.retro-infobox-value a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.retro-infobox-value a:hover {
+  text-decoration: underline;
+}
 .article-eyebrow {
   display: inline-block;
   font-size: 14px;

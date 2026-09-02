@@ -245,6 +245,54 @@ html, body {
 .article-photo-frame img.is-poster-crop {
   object-position: left center;
 }
+/* Stacks the photo box with the optional Relevant Links / infobox
+   below it, all in the same left grid column - a plain wrapper with
+   no styling of its own, so pages without those extras (everything
+   but the-launch-day-video, for now) render identically to before. */
+.article-photo-col > .retro-box,
+.article-photo-col > .retro-infobox {
+  margin-bottom: 1.5rem;
+}
+.article-photo-col > :last-child {
+  margin-bottom: 0;
+}
+/* Wikipedia-infobox-style fact table (see the Million Dollar Homepage
+   reference) - label/value rows with a thin divider instead of
+   .retro-box-body's prose padding, kept inside the same blue-border +
+   header-bar chrome as every other box on the page. */
+.retro-infobox {
+  border: 1px solid #4b6da7;
+  background-color: #f1f1f1;
+}
+.retro-infobox-row {
+  display: flex;
+  gap: 8px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(75, 109, 167, .25);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.retro-infobox-row:last-child {
+  border-bottom: none;
+}
+.retro-infobox-label {
+  width: 40%;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+.retro-infobox-value {
+  color: #363636;
+  word-break: break-word;
+}
+.retro-infobox-value a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.retro-infobox-value a:hover {
+  text-decoration: underline;
+}
 .article-eyebrow {
   display: inline-block;
   font-size: 14px;
@@ -482,7 +530,7 @@ html, body {
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Scrappy vs. Polished","description":"How Houdy's decides how much production value a startup video actually needs, and why over-polished video can undercut an early-stage brand.","author":{"@type":"Person","name":"Inde Navarrette"},"publisher":{"@type":"Organization","name":"Houdy's Video Company"},"mainEntityOfPage":"https://jasonesg.github.io/web-flow-2-xpnsv-x7f2q/case-studies/scrappy-vs-polished/"}</script></head>
-<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div data-nav-theme="light"><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">PROCESS</div></div><div class="article-wrap"><div class="article-grid"><div class="retro-box article-photo"><div class="retro-box-header">Inde Navarrette</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Inde Navarrette on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div><div class="article-main"><h1 class="article-title">Scrappy vs. Polished</h1><p class="article-dek">Not every startup needs a Wieden+Kennedy budget. Here's how we think about matching production value to the moment you're actually in.</p><div class="article-meta">Inde Navarrette · San Francisco</div><div class="article-body"><p>We get asked, more than you'd expect, to make things look <strong>more expensive</strong> than they need to. A seed-stage founder sees a Series B competitor's brand film and wants that same gloss, immediately, for a company that's four people and a Notion doc.</p>
+<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div data-nav-theme="light"><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">PROCESS</div></div><div class="article-wrap"><div class="article-grid"><div class="article-photo-col"><div class="retro-box article-photo"><div class="retro-box-header">Inde Navarrette</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Inde Navarrette on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div></div><div class="article-main"><h1 class="article-title">Scrappy vs. Polished</h1><p class="article-dek">Not every startup needs a Wieden+Kennedy budget. Here's how we think about matching production value to the moment you're actually in.</p><div class="article-meta">Inde Navarrette · San Francisco</div><div class="article-body"><p>We get asked, more than you'd expect, to make things look <strong>more expensive</strong> than they need to. A seed-stage founder sees a Series B competitor's brand film and wants that same gloss, immediately, for a company that's four people and a Notion doc.</p>
 
 <p>Sometimes that's the right call. Usually it isn't.</p>
 

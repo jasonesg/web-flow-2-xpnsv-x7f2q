@@ -245,6 +245,54 @@ html, body {
 .article-photo-frame img.is-poster-crop {
   object-position: left center;
 }
+/* Stacks the photo box with the optional Relevant Links / infobox
+   below it, all in the same left grid column - a plain wrapper with
+   no styling of its own, so pages without those extras (everything
+   but the-launch-day-video, for now) render identically to before. */
+.article-photo-col > .retro-box,
+.article-photo-col > .retro-infobox {
+  margin-bottom: 1.5rem;
+}
+.article-photo-col > :last-child {
+  margin-bottom: 0;
+}
+/* Wikipedia-infobox-style fact table (see the Million Dollar Homepage
+   reference) - label/value rows with a thin divider instead of
+   .retro-box-body's prose padding, kept inside the same blue-border +
+   header-bar chrome as every other box on the page. */
+.retro-infobox {
+  border: 1px solid #4b6da7;
+  background-color: #f1f1f1;
+}
+.retro-infobox-row {
+  display: flex;
+  gap: 8px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(75, 109, 167, .25);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.retro-infobox-row:last-child {
+  border-bottom: none;
+}
+.retro-infobox-label {
+  width: 40%;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+.retro-infobox-value {
+  color: #363636;
+  word-break: break-word;
+}
+.retro-infobox-value a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.retro-infobox-value a:hover {
+  text-decoration: underline;
+}
 .article-eyebrow {
   display: inline-block;
   font-size: 14px;
@@ -482,7 +530,7 @@ html, body {
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The 90-Second Pitch Video","description":"What makes a startup pitch video work for fundraising: clarity, specificity, and a founder who sounds like themselves — not a highlight reel of office plants.","author":{"@type":"Person","name":"Alex Ayala"},"publisher":{"@type":"Organization","name":"Houdy's Video Company"},"mainEntityOfPage":"https://jasonesg.github.io/web-flow-2-xpnsv-x7f2q/case-studies/the-90-second-pitch/"}</script></head>
-<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div data-nav-theme="light"><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">FUNDRAISING</div></div><div class="article-wrap"><div class="article-grid"><div class="retro-box article-photo"><div class="retro-box-header">Alex Ayala</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Alex Ayala on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div><div class="article-main"><h1 class="article-title">The 90-Second Pitch Video</h1><p class="article-dek">What actually earns a founder a second meeting with an investor — and it's rarely the drone shot.</p><div class="article-meta">Alex Ayala · San Francisco</div><div class="article-body"><p>Every founder who comes to us with a "pitch video" ask starts by describing something cinematic. Sweeping shots of the office. A moody voiceover. Maybe a drone, if the budget stretches. We understand the instinct — it's what a "professional" video is supposed to look like.</p>
+<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div data-nav-theme="light"><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">FUNDRAISING</div></div><div class="article-wrap"><div class="article-grid"><div class="article-photo-col"><div class="retro-box article-photo"><div class="retro-box-header">Alex Ayala</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Alex Ayala on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div></div><div class="article-main"><h1 class="article-title">The 90-Second Pitch Video</h1><p class="article-dek">What actually earns a founder a second meeting with an investor — and it's rarely the drone shot.</p><div class="article-meta">Alex Ayala · San Francisco</div><div class="article-body"><p>Every founder who comes to us with a "pitch video" ask starts by describing something cinematic. Sweeping shots of the office. A moody voiceover. Maybe a drone, if the budget stretches. We understand the instinct — it's what a "professional" video is supposed to look like.</p>
 
 <p>Almost none of it is what gets watched past the first fifteen seconds.</p>
 
