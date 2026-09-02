@@ -48,6 +48,20 @@ document.fonts.ready.then(() => {
 <style>
 .scramble-text { white-space: nowrap; }
 
+/* Prevents horizontal swipe/rubber-band panning on mobile. The hero
+   video and the two footer-reveal-tile videos are scaled way up via
+   transform (the zoom-to-region crop technique) and translated into
+   place - their PARENTS clip that visually with overflow:hidden, but
+   the videos' own layout boxes are still huge (measured extending to
+   x:1195px on a 390px-wide viewport). Mobile Safari's horizontal-pan
+   boundary picks up on that oversized transformed geometry regardless
+   of the visual clipping, letting a sideways swipe rubber-band into
+   empty canvas. Clipping at the document root is the clean fix - no
+   JS, no touch-event interception, vertical scroll stays untouched. */
+html, body {
+  overflow-x: hidden;
+}
+
 /* Base navbar blur reduced from the compiled stylesheet's 6px. */
 .navbar {
   -webkit-backdrop-filter: blur(2px);
@@ -190,12 +204,29 @@ h1._w-div {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
 }
+/* Footer content matched to the same padding as the navbar/hero, so
+   the copyright text's left edge lines up with the logo's left edge
+   (the footer-container's own Webflow default was a fixed 1.5rem at
+   every breakpoint, unrelated to the navbar/hero's alignment). */
+.footer-container {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
 /* .hero-contain itself drops to 0 padding at this breakpoint (its own
    pre-existing rule) - mirrored here so the match holds there too. */
 @media screen and (max-width: 991px) {
   .navbar-container {
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+  /* The logo's true left edge is still 2rem in at this breakpoint -
+     that's coming from .navbar's own unconditional padding-left:2rem
+     (a separate, un-overridden base rule, not .navbar-container's,
+     which is what's zeroed out above). Footer-container matches that
+     2rem instead of going to 0, so it still lines up with the logo. */
+  .footer-container {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
   }
 }
 
