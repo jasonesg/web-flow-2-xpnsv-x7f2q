@@ -258,11 +258,21 @@ html, body {
    no styling of its own, so pages without those extras (everything
    but the-launch-day-video, for now) render identically to before. */
 .article-photo-col > .retro-box,
-.article-photo-col > .retro-infobox {
+.article-photo-col > .retro-infobox,
+.article-photo-col > .article-photo-caption {
   margin-bottom: 1.5rem;
 }
 .article-photo-col > :last-child {
   margin-bottom: 0;
+}
+/* Wikipedia-style image caption sitting directly under the photo box -
+   same byline text .article-meta shows in the main column, just
+   relocated here (see meta_under_photo in content.py). */
+.article-photo-caption {
+  font-family: Geist, sans-serif;
+  font-size: 13px;
+  color: #928e88;
+  text-align: center;
 }
 /* Wikipedia-infobox-style fact table (see the Million Dollar Homepage
    reference) - label/value rows with a thin divider instead of
@@ -346,6 +356,10 @@ html, body {
   font-weight: 600;
   color: #2c2c2c;
 }
+/* Wikipedia article headings are set off from body text with a full-
+   width rule under the heading rather than sitting flush in the flow
+   - same divider color as .retro-infobox-row's own row dividers above,
+   reused here so the two navigation aids read as one visual language. */
 .article-body h2 {
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 700;
@@ -354,6 +368,15 @@ html, body {
   line-height: 1.3;
   color: #2c2c2c;
   margin: 2.5rem 0 1rem;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid rgba(75, 109, 167, .25);
+}
+.article-body a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.article-body a:hover {
+  text-decoration: underline;
 }
 .article-pull {
   font-family: Vollkorn, serif;
