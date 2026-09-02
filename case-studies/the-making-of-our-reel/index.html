@@ -269,16 +269,14 @@ html, body {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
-  /* Top spacing matches .hero-contain's own margin-top on the
-     homepage exactly (6rem base/mobile, 1.5rem at >=991px) - same gap
-     from the fixed navbar to where the hero video starts, applied
-     here to where the "Houdy's Case Studies Group" box starts. */
+  /* .hero-contain's own margin-top drops to 1.5rem at >=991px, but
+     that only works there because the hero VIDEO is decorative and
+     fine to sit partly behind the fixed navbar's blur. The title bar
+     here is real text - at 1.5rem it was genuinely hidden behind the
+     navbar/logo (confirmed broken via screenshot, not a good homage).
+     Keeping the single 6rem value at every width instead, which
+     clears the fixed navbar (4rem tall) with real breathing room. */
   padding: 6rem 2rem 4rem;
-}
-@media screen and (min-width: 991px) {
-  .cs-index-wrap {
-    padding-top: 1.5rem;
-  }
 }
 
 /* Retro "TheFacebook, 2005" group-profile homage, restyled with
