@@ -178,11 +178,21 @@ html, body {
 }
 
 /* Article page typography, shared across case-study pages. */
+/* Matches .navbar-container's own max-width:960px + centering (its
+   Webflow base rule, not the padding override above) so the back link
+   and category badge land under the logo's actual left edge - the
+   narrower 720px .article-wrap below sits inset from that on purpose. */
+.article-topbar {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 7.5rem 2rem 0;
+}
 .article-wrap {
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  padding: 7.5rem 2rem 4rem;
+  padding: 0 2rem 4rem;
 }
 .article-eyebrow {
   display: inline-block;
