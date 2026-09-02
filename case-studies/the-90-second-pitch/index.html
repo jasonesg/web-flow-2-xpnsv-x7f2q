@@ -314,6 +314,23 @@ html, body {
   gap: 1.5rem;
   align-items: start;
 }
+/* .cell-block-one/.cell-block-two's own spacing on the homepage,
+   applied to this grid's two columns: cell-block-one uses margin-left/
+   right:1rem (its own border sits inset from .hero_grid by that much),
+   cell-block-two uses padding-left/right:1rem instead (no border of
+   its own). Both also share margin-bottom:1rem and padding-bottom:.5rem. */
+.retro-col-left {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+}
+.retro-col-right {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+}
 @media screen and (min-width: 768px) {
   .retro-grid {
     grid-template-columns: 2fr 1fr;
