@@ -271,70 +271,111 @@ html, body {
   margin: 0 auto;
   padding: 7.5rem 2rem 4rem;
 }
-.cs-index-title {
-  font-family: Geist, sans-serif;
+
+/* Retro "TheFacebook, 2005" group-profile homage, restyled with
+   Houdy's own palette instead of a foreign one: the blue (#4b6da7)
+   bordered box + blue title-bar language is already established on
+   the homepage (.hero_grid's border, the "WELCOME TO HOUDY'S" bar) -
+   reused directly here rather than inventing new chrome. Left sidebar
+   (search box + My Profile/My Friends/... nav) from the reference is
+   dropped as its own column per instruction; those nav labels are
+   relocated into the right column's "Related Groups"-style box. The
+   real navbar stands in for the reference's own top bar. */
+.retro-titlebar {
+  font-size: 13px;
   font-weight: 700;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  letter-spacing: -.02em;
-  color: #2c2c2c;
-  margin: 0 0 .75rem;
+  line-height: 1.4;
+  color: #f1f1f1;
+  background-color: #4b6da7;
+  padding: 6px 12px;
+  margin-bottom: 1.5rem;
 }
-.cs-index-dek {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 1.125rem;
-  color: #4a4a4a;
-  max-width: 46ch;
-  margin: 0 0 3rem;
-}
-.cs-grid {
+.retro-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
+  align-items: start;
 }
 @media screen and (min-width: 768px) {
-  .cs-grid {
-    grid-template-columns: 1fr 1fr;
+  .retro-grid {
+    grid-template-columns: 2fr 1fr;
   }
 }
-.cs-card {
-  display: block;
-  text-decoration: none;
-  border: 1px solid rgba(44, 44, 44, .15);
-  border-radius: .4rem;
-  padding: 1.75rem;
-  transition: background-color .2s, border-color .2s;
+.retro-box {
+  border: 1px solid #4b6da7;
+  margin-bottom: 1.5rem;
+  background-color: #f1f1f1;
 }
-.cs-card:hover {
-  background-color: rgba(255, 255, 255, .6);
-  border-color: rgba(44, 44, 44, .3);
+.retro-box-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f1f1;
+  background-color: #4b6da7;
+  padding: 4px 10px;
 }
-.cs-card-eyebrow {
-  font-family: Geist, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: #4b6da7;
-  margin-bottom: .75rem;
+.retro-box-body {
+  padding: 12px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #363636;
 }
-.cs-card-title {
+.retro-box-body p {
+  margin: 0 0 .75em;
+}
+.retro-thread + .retro-thread {
+  border-top: 1px dashed rgba(75, 109, 167, .35);
+  padding-top: .85em;
+  margin-top: .85em;
+}
+.retro-thread-title {
   font-family: Geist, sans-serif;
   font-weight: 700;
-  font-size: 1.375rem;
+  font-size: 15px;
   color: #2c2c2c;
-  margin: 0 0 .5rem;
-  letter-spacing: -.01em;
+  margin: 0 0 .35em;
 }
-.cs-card-dek {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #4a4a4a;
+.retro-thread-meta {
+  font-size: 12px;
+  color: #928e88;
+  margin-bottom: .5em;
+}
+.retro-thread-dek {
+  margin: 0 0 .5em;
+}
+.retro-links a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.retro-links a:hover {
+  text-decoration: underline;
+}
+.retro-picture {
+  width: 100%;
+  display: block;
+}
+.retro-quicklinks a,
+.retro-related li {
+  display: block;
+  font-size: 13px;
+  padding: 3px 0;
+}
+.retro-quicklinks a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.retro-quicklinks a:hover {
+  text-decoration: underline;
+}
+.retro-related {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  color: #928e88;
 }
 </style>
 </head>
-<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div class="cs-index-wrap" data-nav-theme="light"><h1 class="cs-index-title">Case Studies</h1><p class="cs-index-dek">A few notes on how we actually think about making video for founders — what we've learned, what we'd do differently, and why the answer is so rarely "add more polish."</p><div class="cs-grid"><a href="the-making-of-our-reel/" class="cs-card"><div class="cs-card-eyebrow">BEHIND THE SCENES</div><div class="cs-card-title">The Making of Our Reel</div><p class="cs-card-dek">How we shot our own homepage reel in one afternoon, on purpose, with almost nothing.</p></a><a href="the-90-second-pitch/" class="cs-card"><div class="cs-card-eyebrow">FUNDRAISING</div><div class="cs-card-title">The 90-Second Pitch Video</div><p class="cs-card-dek">What we've learned about pitch videos that actually get a founder a second meeting.</p></a><a href="scrappy-vs-polished/" class="cs-card"><div class="cs-card-eyebrow">PROCESS</div><div class="cs-card-title">Scrappy vs. Polished</div><p class="cs-card-dek">How we decide how much polish a video actually needs — and when more polish quietly works against you.</p></a></div></div><div class="footer-section"><div class="noise-layer-footer"><div class="footer-container"><div class="padding-vertical padding-xxlarge"><div class="padding-top"></div><div class="divider-horizontal"></div><div class="padding-bottom"><div class="w-layout-grid footer4_top-wrapper"><div class="footer-text scramble-text">Houdy&#x27;s Video Company © 2026</div><div class="nav-wrap"><a href="http://instagram.com/houdysdotcom" class="hover-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<body class="body"><div class="navbar"><div class="navbar-container"><a id="brand-logo" href="../" aria-current="page" class="home w-node-d2f98a21-a22d-c2ba-6831-24e3dc443d2b-dc443d29 w-inline-block w--current"><img src="../assets/logo.svg" loading="eager" width="30" height="36" alt="Houdy&#x27;s Icon" class="image-14"/></a><div class="nav-wrap"><a data-scramble="" href="../case-studies/" class="hover-link w-inline-block"><div class="scramble-text">Case Studies</div></a><a href="mailto:hello@houdys.com?subject=Hey%20there!!" class="hover-link w-inline-block"><div class="scramble-text">Contact Us</div></a></div></div></div><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div class="cs-index-wrap" data-nav-theme="light"><div class="retro-titlebar">Houdy's Case Studies Group's Profile (you found the good stuff)</div><div class="retro-grid"><div><div class="retro-box"><div class="retro-box-header">Group Description</div><div class="retro-box-body"><p>A few notes on how we actually think about making video for founders — what we've learned, what we'd do differently, and why the answer is so rarely "add more polish."</p><p>Founded 2023.</p></div></div><div class="retro-box"><div class="retro-box-header">Recent Case Studies</div><div class="retro-box-body"><div class="retro-thread"><div class="retro-thread-title">The Making of Our Reel</div><div class="retro-thread-meta">BEHIND THE SCENES · Houdy's Video Company</div><p class="retro-thread-dek">How we shot our own homepage reel in one afternoon, on purpose, with almost nothing.</p><div class="retro-links"><a href="the-making-of-our-reel/">read more</a> :: <a href="the-making-of-our-reel/">view</a></div></div><div class="retro-thread"><div class="retro-thread-title">The 90-Second Pitch Video</div><div class="retro-thread-meta">FUNDRAISING · Houdy's Video Company</div><p class="retro-thread-dek">What we've learned about pitch videos that actually get a founder a second meeting.</p><div class="retro-links"><a href="the-90-second-pitch/">read more</a> :: <a href="the-90-second-pitch/">view</a></div></div><div class="retro-thread"><div class="retro-thread-title">Scrappy vs. Polished</div><div class="retro-thread-meta">PROCESS · Houdy's Video Company</div><p class="retro-thread-dek">How we decide how much polish a video actually needs — and when more polish quietly works against you.</p><div class="retro-links"><a href="scrappy-vs-polished/">read more</a> :: <a href="scrappy-vs-polished/">view</a></div></div></div></div></div><div><div class="retro-box"><div class="retro-box-header">Picture</div><img src="../assets/hero-poster.jpg" alt="Houdy's Video Company" class="retro-picture"/></div><div class="retro-box"><div class="retro-box-body retro-quicklinks"><a href="../">Home</a><a href="mailto:hello@houdys.com?subject=Hey%20there!!">Contact Us</a><a href="http://instagram.com/houdysdotcom">Instagram</a><a href="https://x.com/houdysdotcom">X</a></div></div><div class="retro-box"><div class="retro-box-header">Related Groups</div><div class="retro-box-body"><ul class="retro-related"><li>My Profile [edit]</li><li>My Friends</li><li>My Groups</li><li>My Parties</li><li>My Messages</li><li>My Account</li><li>My Privacy</li></ul></div></div></div></div></div><div class="footer-section"><div class="noise-layer-footer"><div class="footer-container"><div class="padding-vertical padding-xxlarge"><div class="padding-top"></div><div class="divider-horizontal"></div><div class="padding-bottom"><div class="w-layout-grid footer4_top-wrapper"><div class="footer-text scramble-text">Houdy&#x27;s Video Company © 2026</div><div class="nav-wrap"><a href="http://instagram.com/houdysdotcom" class="hover-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="CurrentColor"/>
 </svg></div></a><a href="https://x.com/houdysdotcom" class="hover-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M17.1761 4H19.9362L13.9061 10.7774L21 20H15.4456L11.0951 14.4066L6.11723 20H3.35544L9.80517 12.7508L3 4H8.69545L12.6279 9.11262L17.1761 4ZM16.2073 18.3754H17.7368L7.86441 5.53928H6.2232L16.2073 18.3754Z" fill="CurrentColor"/>

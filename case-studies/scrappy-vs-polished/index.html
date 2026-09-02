@@ -271,66 +271,107 @@ html, body {
   margin: 0 auto;
   padding: 7.5rem 2rem 4rem;
 }
-.cs-index-title {
-  font-family: Geist, sans-serif;
+
+/* Retro "TheFacebook, 2005" group-profile homage, restyled with
+   Houdy's own palette instead of a foreign one: the blue (#4b6da7)
+   bordered box + blue title-bar language is already established on
+   the homepage (.hero_grid's border, the "WELCOME TO HOUDY'S" bar) -
+   reused directly here rather than inventing new chrome. Left sidebar
+   (search box + My Profile/My Friends/... nav) from the reference is
+   dropped as its own column per instruction; those nav labels are
+   relocated into the right column's "Related Groups"-style box. The
+   real navbar stands in for the reference's own top bar. */
+.retro-titlebar {
+  font-size: 13px;
   font-weight: 700;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  letter-spacing: -.02em;
-  color: #2c2c2c;
-  margin: 0 0 .75rem;
+  line-height: 1.4;
+  color: #f1f1f1;
+  background-color: #4b6da7;
+  padding: 6px 12px;
+  margin-bottom: 1.5rem;
 }
-.cs-index-dek {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 1.125rem;
-  color: #4a4a4a;
-  max-width: 46ch;
-  margin: 0 0 3rem;
-}
-.cs-grid {
+.retro-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
+  align-items: start;
 }
 @media screen and (min-width: 768px) {
-  .cs-grid {
-    grid-template-columns: 1fr 1fr;
+  .retro-grid {
+    grid-template-columns: 2fr 1fr;
   }
 }
-.cs-card {
-  display: block;
-  text-decoration: none;
-  border: 1px solid rgba(44, 44, 44, .15);
-  border-radius: .4rem;
-  padding: 1.75rem;
-  transition: background-color .2s, border-color .2s;
+.retro-box {
+  border: 1px solid #4b6da7;
+  margin-bottom: 1.5rem;
+  background-color: #f1f1f1;
 }
-.cs-card:hover {
-  background-color: rgba(255, 255, 255, .6);
-  border-color: rgba(44, 44, 44, .3);
+.retro-box-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f1f1;
+  background-color: #4b6da7;
+  padding: 4px 10px;
 }
-.cs-card-eyebrow {
-  font-family: Geist, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: #4b6da7;
-  margin-bottom: .75rem;
+.retro-box-body {
+  padding: 12px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #363636;
 }
-.cs-card-title {
+.retro-box-body p {
+  margin: 0 0 .75em;
+}
+.retro-thread + .retro-thread {
+  border-top: 1px dashed rgba(75, 109, 167, .35);
+  padding-top: .85em;
+  margin-top: .85em;
+}
+.retro-thread-title {
   font-family: Geist, sans-serif;
   font-weight: 700;
-  font-size: 1.375rem;
+  font-size: 15px;
   color: #2c2c2c;
-  margin: 0 0 .5rem;
-  letter-spacing: -.01em;
+  margin: 0 0 .35em;
 }
-.cs-card-dek {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #4a4a4a;
+.retro-thread-meta {
+  font-size: 12px;
+  color: #928e88;
+  margin-bottom: .5em;
+}
+.retro-thread-dek {
+  margin: 0 0 .5em;
+}
+.retro-links a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.retro-links a:hover {
+  text-decoration: underline;
+}
+.retro-picture {
+  width: 100%;
+  display: block;
+}
+.retro-quicklinks a,
+.retro-related li {
+  display: block;
+  font-size: 13px;
+  padding: 3px 0;
+}
+.retro-quicklinks a {
+  color: #4b6da7;
+  text-decoration: none;
+}
+.retro-quicklinks a:hover {
+  text-decoration: underline;
+}
+.retro-related {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  color: #928e88;
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Scrappy vs. Polished","description":"How Houdy's decides how much production value a startup video actually needs, and why over-polished video can undercut an early-stage brand.","author":{"@type":"Organization","name":"Houdy's Video Company"},"publisher":{"@type":"Organization","name":"Houdy's Video Company"},"mainEntityOfPage":"https://jasonesg.github.io/web-flow-2-xpnsv-x7f2q/case-studies/scrappy-vs-polished/"}</script></head>
