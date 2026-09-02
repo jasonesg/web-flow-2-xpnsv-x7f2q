@@ -265,14 +265,18 @@ html, body {
 .article-photo-col > :last-child {
   margin-bottom: 0;
 }
-/* Wikipedia-style image caption sitting directly under the photo box -
-   same byline text .article-meta shows in the main column, just
-   relocated here (see meta_under_photo in content.py). */
+/* Pulled in tight under the photo box itself (not the standard 1.5rem
+   box rhythm) - matches the old Facebook profile's name/location line
+   sitting flush under the profile photo, left-aligned rather than
+   centered like a typical caption. */
+.article-photo-col > .retro-box.article-photo {
+  margin-bottom: .35rem;
+}
 .article-photo-caption {
   font-family: Geist, sans-serif;
   font-size: 13px;
   color: #928e88;
-  text-align: center;
+  text-align: left;
 }
 /* Wikipedia-infobox-style fact table (see the Million Dollar Homepage
    reference) - label/value rows with a thin divider instead of
