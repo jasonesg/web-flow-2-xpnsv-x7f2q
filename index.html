@@ -48,6 +48,12 @@ document.fonts.ready.then(() => {
 <style>
 .scramble-text { white-space: nowrap; }
 
+/* Base navbar blur reduced from the compiled stylesheet's 6px. */
+.navbar {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
 .navbar-container.is-scrolled {
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   backdrop-filter: blur(16px) saturate(160%);
