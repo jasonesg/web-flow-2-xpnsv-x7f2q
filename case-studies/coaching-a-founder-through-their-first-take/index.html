@@ -208,6 +208,14 @@ html, body {
     grid-template-columns: 1fr 2fr;
   }
 }
+/* Per-article override (currently just the-launch-day-video): copy on
+   the left, photo + its boxes on the right - DOM order is swapped to
+   match (see content.py), so this just mirrors the column ratio. */
+@media screen and (min-width: 768px) {
+  .article-grid.article-grid--reverse {
+    grid-template-columns: 2fr 1fr;
+  }
+}
 .article-main {
   border: 1px solid #4b6da7;
   padding: 1.5rem;
@@ -339,7 +347,7 @@ html, body {
   color: #2c2c2c;
 }
 .article-body h2 {
-  font-family: Geist, sans-serif;
+  font-family: Georgia, "Times New Roman", serif;
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: normal;
