@@ -305,13 +305,18 @@ html, body {
   border: 1px solid #4b6da7;
   margin-bottom: 4rem;
 }
+/* Matches .hero_grid's own padding exactly: padding-top:1rem only, no
+   left/right/bottom - the column insets come entirely from
+   .retro-col-left/right below (mirroring .cell-block-one/two), not
+   from padding here. */
 .retro-outer-body {
-  padding: 1.5rem;
+  padding-top: 1rem;
 }
 .retro-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  /* Matches .hero_grid's own grid-column-gap:.25rem. */
+  gap: .25rem;
   align-items: start;
 }
 /* .cell-block-one/.cell-block-two's own spacing on the homepage,
