@@ -561,6 +561,46 @@ document.querySelectorAll('.scramble-text').forEach(target => {
 </script>
 <script>
 (() => {
+  // Granola.ai-style scroll hold: scrolling down into the footer
+  // wordmark freezes the page in place for ~1.75s (blocking further
+  // wheel/touch scroll input, including trackpad momentum) before
+  // releasing on its own - confirmed by frame-by-frame analysis of a
+  // screen recording of granola.ai's own site, which does this at a
+  // couple of points on the way down; this reproduces it once, at the
+  // wordmark, since that's the one section-reveal moment this
+  // single-page site has. Re-arms if the user scrolls back up well
+  // above the trigger point, so it can fire again on a second pass.
+  const wordmark = document.querySelector('.footer-wordmark');
+  if (!wordmark) return;
+
+  const HOLD_MS = 1750;
+  const REARM_MARGIN = 100;
+  let locked = false;
+  let armed = true;
+
+  const preventScroll = (e) => {
+    if (locked) e.preventDefault();
+  };
+  addEventListener('wheel', preventScroll, { passive: false });
+  addEventListener('touchmove', preventScroll, { passive: false });
+
+  const checkTrigger = () => {
+    if (locked) return;
+    const top = wordmark.getBoundingClientRect().top;
+    if (armed && top <= window.innerHeight) {
+      locked = true;
+      armed = false;
+      setTimeout(() => { locked = false; }, HOLD_MS);
+    } else if (!armed && top > window.innerHeight + REARM_MARGIN) {
+      armed = true;
+    }
+  };
+  addEventListener('scroll', checkTrigger, { passive: true });
+  checkTrigger();
+})();
+</script>
+<script>
+(() => {
   const form = document.getElementById('wf-form-Email-Form');
   const btn = document.getElementById('gform-submit-btn');
   if (!form || !btn) return;
