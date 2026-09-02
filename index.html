@@ -199,9 +199,8 @@ h1._w-div {
    below the existing copyright/social row, and (below that) a
    full-bleed strip of two video tiles - granola's own footer reveals
    a row of two large tiles below their wordmark as you keep scrolling
-   past it. We only have one video asset, so both tiles crop different
-   regions of the same hero.mp4 for variety instead of duplicating it
-   identically. */
+   past it. We only have one video asset, so both tiles crop the same
+   raw-footage region of hero.mp4 (no bracket/text). */
 .footer-reveal-strip {
   display: flex;
   width: 100%;
@@ -494,15 +493,14 @@ document.querySelectorAll('.scramble-text').forEach(target => {
 <script>
 (() => {
   // Footer reveal strip: same crop-to-region technique as the navbar's
-  // hero video above, applied to two different regions of that same
-  // clip so the two tiles show different content from one asset - left
-  // tile crops the raw footage (native x:0-640), right tile crops the
-  // other half, which includes the "[houdy's]" bracket banner
-  // (x:640-1280), both within the footage's native y:286-433 band.
+  // hero video above. Both tiles crop the raw clapperboard footage
+  // only (native x:0-640, well clear of the "[houdy's]" bracket banner
+  // which starts around x:533), within the footage's native y:286-433
+  // band - no bracket/text in either tile.
   const NATIVE_W = 1280, NATIVE_H = 720;
   const tiles = [
     { el: document.querySelector('.footer-reveal-tile--left'), roi: { x0: 0, y0: 286, x1: 640, y1: 433 } },
-    { el: document.querySelector('.footer-reveal-tile--right'), roi: { x0: 640, y0: 286, x1: 1280, y1: 433 } }
+    { el: document.querySelector('.footer-reveal-tile--right'), roi: { x0: 0, y0: 286, x1: 640, y1: 433 } }
   ].filter(t => t.el && t.el.querySelector('video'));
   if (!tiles.length) return;
 
