@@ -465,6 +465,19 @@ html, body {
   margin: 0 auto;
   padding: 7.5rem 2rem 4rem;
 }
+/* Matches .hero-contain's own mobile/tablet override exactly (same
+   breakpoint, same padding-left/right:0) so .retro-outer spans edge
+   to edge like the homepage's hero video does there. The boxes inside
+   (.retro-col-left/right) already have their own 1rem inset - the
+   same match to .cell-block-one/two done earlier - so they land at
+   the same distance from the edge "WELCOME TO HOUDY'S" sits at,
+   without any extra change needed. */
+@media screen and (max-width: 991px) {
+  .cs-index-wrap {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 
 /* Retro "TheFacebook, 2005" group-profile homage, restyled with
    Houdy's own palette instead of a foreign one: the blue (#4b6da7)
