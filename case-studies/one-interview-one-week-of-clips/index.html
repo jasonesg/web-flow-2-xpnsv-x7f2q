@@ -136,9 +136,16 @@ html, body {
   top: 0;
   left: 0;
 }
+/* Same tiled grain the homepage's .section-herobox already carries -
+   on the homepage it's normally hidden behind that hero box, but on
+   pages without one (case studies) this is what actually shows, so
+   the two match instead of case-study pages reading as flat/plain. */
 .reveal-content-wrapper {
   position: relative;
   background-color: #f1f1f1;
+  background-image: url("https://cdn.prod.website-files.com/69ff999fa7bae47cfd6a0f49/69ff99a3a7bae47cfd6a0fd5_Grain_Latest.png");
+  background-position: 0 0;
+  background-size: 300px 300px;
 }
 .reveal-sentinel {
   height: 1px;
@@ -209,11 +216,32 @@ html, body {
   }
 }
 /* Per-article override (currently just the-launch-day-video): copy on
-   the left, photo + its boxes on the right - DOM order is swapped to
-   match (see content.py), so this just mirrors the column ratio. */
+   the left, photo + its boxes on the right - mirrors the column ratio
+   only. DOM order stays photo -> main -> extras either way (see
+   content.py) so mobile always reads photo, then text, then extras -
+   grid-template-areas below is what re-sorts that into columns. */
 @media screen and (min-width: 768px) {
   .article-grid.article-grid--reverse {
     grid-template-columns: 2fr 1fr;
+  }
+  /* Only pages with Relevant Links/infobox (article-photo-extras) need
+     named areas - everyone else keeps the plain 2-column auto-flow
+     (photo in column 1, main in column 2) untouched. */
+  .article-grid.article-grid--has-extras {
+    grid-template-areas: "photo main" "extras main";
+    row-gap: 1.5rem;
+  }
+  .article-grid.article-grid--has-extras .article-photo {
+    grid-area: photo;
+  }
+  .article-grid.article-grid--has-extras .article-main {
+    grid-area: main;
+  }
+  .article-grid.article-grid--has-extras .article-photo-extras {
+    grid-area: extras;
+  }
+  .article-grid.article-grid--reverse.article-grid--has-extras {
+    grid-template-areas: "main photo" "main extras";
   }
 }
 .article-main {
@@ -253,15 +281,15 @@ html, body {
 .article-photo-frame img.is-poster-crop {
   object-position: left center;
 }
-/* Stacks the photo box with the optional Relevant Links / infobox
-   below it, all in the same left grid column - a plain wrapper with
-   no styling of its own, so pages without those extras (everything
-   but the-launch-day-video, for now) render identically to before. */
-.article-photo-col > .retro-box,
-.article-photo-col > .retro-infobox {
+/* Wraps the optional Relevant Links / infobox boxes (currently just
+   the-launch-day-video). At >=768px this shares a grid column with
+   the photo box (see grid-template-areas below); below that it just
+   falls in normal document flow, after .article-main. */
+.article-photo-extras > .retro-box,
+.article-photo-extras > .retro-infobox {
   margin-bottom: 1.5rem;
 }
-.article-photo-col > :last-child {
+.article-photo-extras > :last-child {
   margin-bottom: 0;
 }
 /* Sits inside the photo box itself, under the slideshow, styled as a
@@ -623,7 +651,7 @@ html, body {
     close();
   });
 })();
-</script><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">SOCIAL</div></div><div class="article-wrap"><div class="article-grid"><div class="article-photo-col"><div class="retro-box article-photo"><div class="retro-box-header">Sydney Houdy</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Sydney Houdy on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div></div><div class="article-main"><h1 class="article-title">One Interview, One Week of Clips</h1><p class="article-dek">How we turn a single hour of conversation into five days of social content, without it feeling chopped up.</p><div class="article-meta">Sydney Houdy · San Francisco</div><div class="article-body"><p>Most founders don't have a content team. What they have is maybe one good hour of their own time, once. So instead of scheduling five separate shoots for five pieces of content, we shoot one real conversation and mine it.</p>
+</script><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">SOCIAL</div></div><div class="article-wrap"><div class="article-grid"><div class="retro-box article-photo"><div class="retro-box-header">Sydney Houdy</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Sydney Houdy on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div><div class="article-main"><h1 class="article-title">One Interview, One Week of Clips</h1><p class="article-dek">How we turn a single hour of conversation into five days of social content, without it feeling chopped up.</p><div class="article-meta">Sydney Houdy · San Francisco</div><div class="article-body"><p>Most founders don't have a content team. What they have is maybe one good hour of their own time, once. So instead of scheduling five separate shoots for five pieces of content, we shoot one real conversation and mine it.</p>
 
 <h2>Record for the whole answer, not the soundbite</h2>
 

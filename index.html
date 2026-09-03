@@ -272,9 +272,16 @@ h1._w-div {
   top: 0;
   left: 0;
 }
+/* Same tiled grain the homepage's .section-herobox already carries -
+   on the homepage it's normally hidden behind that hero box, but on
+   pages without one (case studies) this is what actually shows, so
+   the two match instead of case-study pages reading as flat/plain. */
 .reveal-content-wrapper {
   position: relative;
   background-color: #f1f1f1;
+  background-image: url("https://cdn.prod.website-files.com/69ff999fa7bae47cfd6a0f49/69ff99a3a7bae47cfd6a0fd5_Grain_Latest.png");
+  background-position: 0 0;
+  background-size: 300px 300px;
 }
 .reveal-sentinel {
   height: 1px;
