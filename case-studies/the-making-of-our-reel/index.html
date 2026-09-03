@@ -220,6 +220,11 @@ html, body {
 @media screen and (min-width: 768px) {
   .article-grid {
     grid-template-columns: 1fr 2fr;
+    /* Matches the 1.5rem gap between Event Info and Relevant Links
+       (.article-photo-extras > .retro-box/.retro-infobox below), so
+       the gap between .article-main and the photo column reads the
+       same as the gaps between the boxes stacked inside that column. */
+    column-gap: 1.5rem;
   }
 }
 /* Per-article override (currently just the-launch-day-video): copy on
