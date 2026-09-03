@@ -495,13 +495,21 @@ html, body {
    was really about ITS relationship to the video above it on the
    homepage - not applicable here since there's no video). No gap on
    any side between the bar and the border it sits inside. */
+/* Left/right padding matches where .retro-box-header's own text
+   actually lands, not .retro-box-header's own 10px padding value:
+   .retro-titlebar has no wrapping margin of its own (it's flush
+   inside .retro-outer's border), while .retro-box-header's text is
+   pushed in further by .retro-col-left/right's 1rem margin plus
+   .retro-box's 1px border sitting outside its own 10px padding
+   (1rem + 1px + 10px = 27px total) - matching that combined distance
+   is what actually lines the two up. */
 .retro-titlebar {
   font-size: 13px;
   font-weight: 700;
   line-height: 1.4;
   color: #f1f1f1;
   background-color: #4b6da7;
-  padding: 4px 10px;
+  padding: 4px 27px;
 }
 /* Wraps the title bar + the two-column grid in one border, mirroring
    .hero_grid's own border (1px solid #4b6da7) - .cell-block-one on
