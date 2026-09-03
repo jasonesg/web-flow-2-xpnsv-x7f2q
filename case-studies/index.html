@@ -143,6 +143,13 @@ html, body {
 .reveal-content-wrapper {
   position: relative;
   background-color: #f1f1f1;
+}
+/* Same tiled grain as .section-herobox on the homepage - only case-
+   study pages need it applied directly (this class, not
+   .reveal-content-wrapper): the homepage's grain already comes from
+   .section-herobox covering the same wrapper, so adding it to the
+   wrapper too doubled the grain there instead of matching it. */
+.case-content-bg {
   background-image: url("https://cdn.prod.website-files.com/69ff999fa7bae47cfd6a0f49/69ff99a3a7bae47cfd6a0fd5_Grain_Latest.png");
   background-position: 0 0;
   background-size: 300px 300px;
@@ -217,31 +224,34 @@ html, body {
 }
 /* Per-article override (currently just the-launch-day-video): copy on
    the left, photo + its boxes on the right - mirrors the column ratio
-   only. DOM order stays photo -> main -> extras either way (see
-   content.py) so mobile always reads photo, then text, then extras -
-   grid-template-areas below is what re-sorts that into columns. */
+   only. */
 @media screen and (min-width: 768px) {
   .article-grid.article-grid--reverse {
     grid-template-columns: 2fr 1fr;
   }
-  /* Only pages with Relevant Links/infobox (article-photo-extras) need
-     named areas - everyone else keeps the plain 2-column auto-flow
-     (photo in column 1, main in column 2) untouched. */
-  .article-grid.article-grid--has-extras {
-    grid-template-areas: "photo main" "extras main";
-    row-gap: 1.5rem;
+}
+/* .article-photo-col bundles the photo box with its optional Relevant
+   Links/infobox into ONE grid item at >=768px, so their combined
+   height is fully independent of .article-main's - tried making photo
+   and extras separate grid items spanning rows alongside main instead
+   (grid-template-areas), but a long article body next to a short
+   photo+extras stack stretched a large gap between them, since a
+   spanning item's height gets distributed across the rows it spans.
+   Below 768px it un-nests via display:contents (its children become
+   direct .article-grid items) so `order` can interleave them with
+   .article-main as photo, then text, then extras. */
+@media screen and (max-width: 767px) {
+  .article-photo-col {
+    display: contents;
   }
-  .article-grid.article-grid--has-extras .article-photo {
-    grid-area: photo;
+  .article-photo {
+    order: 1;
   }
-  .article-grid.article-grid--has-extras .article-main {
-    grid-area: main;
+  .article-main {
+    order: 2;
   }
-  .article-grid.article-grid--has-extras .article-photo-extras {
-    grid-area: extras;
-  }
-  .article-grid.article-grid--reverse.article-grid--has-extras {
-    grid-template-areas: "main photo" "main extras";
+  .article-photo-extras {
+    order: 3;
   }
 }
 .article-main {
@@ -282,15 +292,18 @@ html, body {
   object-position: left center;
 }
 /* Wraps the optional Relevant Links / infobox boxes (currently just
-   the-launch-day-video). At >=768px this shares a grid column with
-   the photo box (see grid-template-areas below); below that it just
-   falls in normal document flow, after .article-main. */
+   the-launch-day-video), stacked below the photo box inside
+   .article-photo-col at >=768px (see above); un-nests alongside it
+   below that. */
 .article-photo-extras > .retro-box,
 .article-photo-extras > .retro-infobox {
   margin-bottom: 1.5rem;
 }
 .article-photo-extras > :last-child {
   margin-bottom: 0;
+}
+.article-photo-col > .retro-box.article-photo {
+  margin-bottom: 1.5rem;
 }
 /* Sits inside the photo box itself, under the slideshow, styled as a
    label row - same divider color, padding, and bold-label treatment
@@ -651,7 +664,7 @@ html, body {
     close();
   });
 })();
-</script><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div class="cs-index-wrap"><div class="retro-outer"><div class="retro-titlebar">Houdy's Case Studies Group's Profile (you found the good stuff)</div><div class="retro-outer-body"><div class="retro-grid"><div class="retro-col-left"><div class="retro-box"><div class="retro-box-header">Group Description</div><div class="retro-box-body"><p>A few notes on how we actually think about making video for founders — what we've learned, what we'd do differently, and why the answer is so rarely "add more polish."</p><p>Founded 2023.</p></div></div><div class="retro-box"><div class="retro-box-header">Recent Case Studies</div><div class="retro-box-body"><div class="retro-thread"><div class="retro-thread-title">The Making of Our Reel</div><div class="retro-thread-meta">BEHIND THE SCENES</div><p class="retro-thread-dek">How we shot our own homepage reel in one afternoon, on purpose, with almost nothing.</p><div class="retro-links"><a href="the-making-of-our-reel/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">The 90-Second Pitch Video</div><div class="retro-thread-meta">FUNDRAISING</div><p class="retro-thread-dek">What we've learned about pitch videos that actually get a founder a second meeting.</p><div class="retro-links"><a href="the-90-second-pitch/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">Scrappy vs. Polished</div><div class="retro-thread-meta">PROCESS</div><p class="retro-thread-dek">How we decide how much polish a video actually needs — and when more polish quietly works against you.</p><div class="retro-links"><a href="scrappy-vs-polished/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">Coaching a Founder Through Their First Take</div><div class="retro-thread-meta">DIRECTING</div><p class="retro-thread-dek">What it actually takes to get a first-time founder comfortable on camera.</p><div class="retro-links"><a href="coaching-a-founder-through-their-first-take/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">One Interview, One Week of Clips</div><div class="retro-thread-meta">SOCIAL</div><p class="retro-thread-dek">Turning one long conversation into a week's worth of short-form social clips.</p><div class="retro-links"><a href="one-interview-one-week-of-clips/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">The Launch Day Video</div><div class="retro-thread-meta">LAUNCH</div><p class="retro-thread-dek">What needs to be true before a launch video is worth making.</p><div class="retro-links"><a href="the-launch-day-video/">view more</a></div></div></div></div></div><div class="retro-col-right"><div class="retro-box"><div class="retro-box-header">Picture</div><img src="../assets/hero-poster.jpg" alt="Houdy's Video Company" class="retro-picture"/></div><div class="retro-box retro-box--dashed"><div class="retro-box-body retro-quicklinks"><a href="../">Home</a><a href="mailto:hello@houdys.com?subject=Hey%20there!!">Contact Us</a><a href="http://instagram.com/houdysdotcom">Instagram</a><a href="https://x.com/houdysdotcom">X</a></div></div><div class="retro-box"><div class="retro-box-header">Relevant Links</div><div class="retro-box-body"><ul class="retro-related"><li><a href="#">Source 1</a></li><li><a href="#">Source 2</a></li><li><a href="#">Source 3</a></li><li><a href="#">Source 4</a></li></ul></div></div></div></div></div></div></div><div class="footer-section"><div class="noise-layer-footer"><div class="footer-container"><div class="padding-vertical padding-xxlarge"><div class="padding-top"></div><div class="divider-horizontal"></div><div class="padding-bottom"><div class="w-layout-grid footer4_top-wrapper"><div class="footer-text scramble-text">Houdy&#x27;s Video Company © 2026</div><div class="nav-wrap"><a href="http://instagram.com/houdysdotcom" class="hover-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+</script><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../assets/hero.mp4" type="video/mp4"/><source src="../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div class="cs-index-wrap case-content-bg"><div class="retro-outer"><div class="retro-titlebar">Houdy's Case Studies Group's Profile (you found the good stuff)</div><div class="retro-outer-body"><div class="retro-grid"><div class="retro-col-left"><div class="retro-box"><div class="retro-box-header">Group Description</div><div class="retro-box-body"><p>A few notes on how we actually think about making video for founders — what we've learned, what we'd do differently, and why the answer is so rarely "add more polish."</p><p>Founded 2023.</p></div></div><div class="retro-box"><div class="retro-box-header">Recent Case Studies</div><div class="retro-box-body"><div class="retro-thread"><div class="retro-thread-title">The Making of Our Reel</div><div class="retro-thread-meta">BEHIND THE SCENES</div><p class="retro-thread-dek">How we shot our own homepage reel in one afternoon, on purpose, with almost nothing.</p><div class="retro-links"><a href="the-making-of-our-reel/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">The 90-Second Pitch Video</div><div class="retro-thread-meta">FUNDRAISING</div><p class="retro-thread-dek">What we've learned about pitch videos that actually get a founder a second meeting.</p><div class="retro-links"><a href="the-90-second-pitch/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">Scrappy vs. Polished</div><div class="retro-thread-meta">PROCESS</div><p class="retro-thread-dek">How we decide how much polish a video actually needs — and when more polish quietly works against you.</p><div class="retro-links"><a href="scrappy-vs-polished/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">Coaching a Founder Through Their First Take</div><div class="retro-thread-meta">DIRECTING</div><p class="retro-thread-dek">What it actually takes to get a first-time founder comfortable on camera.</p><div class="retro-links"><a href="coaching-a-founder-through-their-first-take/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">One Interview, One Week of Clips</div><div class="retro-thread-meta">SOCIAL</div><p class="retro-thread-dek">Turning one long conversation into a week's worth of short-form social clips.</p><div class="retro-links"><a href="one-interview-one-week-of-clips/">view more</a></div></div><div class="retro-thread"><div class="retro-thread-title">The Launch Day Video</div><div class="retro-thread-meta">LAUNCH</div><p class="retro-thread-dek">What needs to be true before a launch video is worth making.</p><div class="retro-links"><a href="the-launch-day-video/">view more</a></div></div></div></div></div><div class="retro-col-right"><div class="retro-box"><div class="retro-box-header">Picture</div><img src="../assets/hero-poster.jpg" alt="Houdy's Video Company" class="retro-picture"/></div><div class="retro-box retro-box--dashed"><div class="retro-box-body retro-quicklinks"><a href="../">Home</a><a href="mailto:hello@houdys.com?subject=Hey%20there!!">Contact Us</a><a href="http://instagram.com/houdysdotcom">Instagram</a><a href="https://x.com/houdysdotcom">X</a></div></div><div class="retro-box"><div class="retro-box-header">Relevant Links</div><div class="retro-box-body"><ul class="retro-related"><li><a href="#">Source 1</a></li><li><a href="#">Source 2</a></li><li><a href="#">Source 3</a></li><li><a href="#">Source 4</a></li></ul></div></div></div></div></div></div></div><div class="footer-section"><div class="noise-layer-footer"><div class="footer-container"><div class="padding-vertical padding-xxlarge"><div class="padding-top"></div><div class="divider-horizontal"></div><div class="padding-bottom"><div class="w-layout-grid footer4_top-wrapper"><div class="footer-text scramble-text">Houdy&#x27;s Video Company © 2026</div><div class="nav-wrap"><a href="http://instagram.com/houdysdotcom" class="hover-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="CurrentColor"/>
 </svg></div></a><a href="https://x.com/houdysdotcom" class="hover-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M17.1761 4H19.9362L13.9061 10.7774L21 20H15.4456L11.0951 14.4066L6.11723 20H3.35544L9.80517 12.7508L3 4H8.69545L12.6279 9.11262L17.1761 4ZM16.2073 18.3754H17.7368L7.86441 5.53928H6.2232L16.2073 18.3754Z" fill="CurrentColor"/>

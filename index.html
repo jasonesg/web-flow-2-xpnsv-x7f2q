@@ -279,6 +279,13 @@ h1._w-div {
 .reveal-content-wrapper {
   position: relative;
   background-color: #f1f1f1;
+}
+/* Same tiled grain as .section-herobox on the homepage - only case-
+   study pages need it applied directly (this class, not
+   .reveal-content-wrapper): the homepage's grain already comes from
+   .section-herobox covering the same wrapper, so adding it to the
+   wrapper too doubled the grain there instead of matching it. */
+.case-content-bg {
   background-image: url("https://cdn.prod.website-files.com/69ff999fa7bae47cfd6a0f49/69ff99a3a7bae47cfd6a0fd5_Grain_Latest.png");
   background-position: 0 0;
   background-size: 300px 300px;

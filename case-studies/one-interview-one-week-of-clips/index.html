@@ -143,6 +143,13 @@ html, body {
 .reveal-content-wrapper {
   position: relative;
   background-color: #f1f1f1;
+}
+/* Same tiled grain as .section-herobox on the homepage - only case-
+   study pages need it applied directly (this class, not
+   .reveal-content-wrapper): the homepage's grain already comes from
+   .section-herobox covering the same wrapper, so adding it to the
+   wrapper too doubled the grain there instead of matching it. */
+.case-content-bg {
   background-image: url("https://cdn.prod.website-files.com/69ff999fa7bae47cfd6a0f49/69ff99a3a7bae47cfd6a0fd5_Grain_Latest.png");
   background-position: 0 0;
   background-size: 300px 300px;
@@ -217,31 +224,34 @@ html, body {
 }
 /* Per-article override (currently just the-launch-day-video): copy on
    the left, photo + its boxes on the right - mirrors the column ratio
-   only. DOM order stays photo -> main -> extras either way (see
-   content.py) so mobile always reads photo, then text, then extras -
-   grid-template-areas below is what re-sorts that into columns. */
+   only. */
 @media screen and (min-width: 768px) {
   .article-grid.article-grid--reverse {
     grid-template-columns: 2fr 1fr;
   }
-  /* Only pages with Relevant Links/infobox (article-photo-extras) need
-     named areas - everyone else keeps the plain 2-column auto-flow
-     (photo in column 1, main in column 2) untouched. */
-  .article-grid.article-grid--has-extras {
-    grid-template-areas: "photo main" "extras main";
-    row-gap: 1.5rem;
+}
+/* .article-photo-col bundles the photo box with its optional Relevant
+   Links/infobox into ONE grid item at >=768px, so their combined
+   height is fully independent of .article-main's - tried making photo
+   and extras separate grid items spanning rows alongside main instead
+   (grid-template-areas), but a long article body next to a short
+   photo+extras stack stretched a large gap between them, since a
+   spanning item's height gets distributed across the rows it spans.
+   Below 768px it un-nests via display:contents (its children become
+   direct .article-grid items) so `order` can interleave them with
+   .article-main as photo, then text, then extras. */
+@media screen and (max-width: 767px) {
+  .article-photo-col {
+    display: contents;
   }
-  .article-grid.article-grid--has-extras .article-photo {
-    grid-area: photo;
+  .article-photo {
+    order: 1;
   }
-  .article-grid.article-grid--has-extras .article-main {
-    grid-area: main;
+  .article-main {
+    order: 2;
   }
-  .article-grid.article-grid--has-extras .article-photo-extras {
-    grid-area: extras;
-  }
-  .article-grid.article-grid--reverse.article-grid--has-extras {
-    grid-template-areas: "main photo" "main extras";
+  .article-photo-extras {
+    order: 3;
   }
 }
 .article-main {
@@ -282,15 +292,18 @@ html, body {
   object-position: left center;
 }
 /* Wraps the optional Relevant Links / infobox boxes (currently just
-   the-launch-day-video). At >=768px this shares a grid column with
-   the photo box (see grid-template-areas below); below that it just
-   falls in normal document flow, after .article-main. */
+   the-launch-day-video), stacked below the photo box inside
+   .article-photo-col at >=768px (see above); un-nests alongside it
+   below that. */
 .article-photo-extras > .retro-box,
 .article-photo-extras > .retro-infobox {
   margin-bottom: 1.5rem;
 }
 .article-photo-extras > :last-child {
   margin-bottom: 0;
+}
+.article-photo-col > .retro-box.article-photo {
+  margin-bottom: 1.5rem;
 }
 /* Sits inside the photo box itself, under the slideshow, styled as a
    label row - same divider color, padding, and bold-label treatment
@@ -651,7 +664,7 @@ html, body {
     close();
   });
 })();
-</script><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">SOCIAL</div></div><div class="article-wrap"><div class="article-grid"><div class="retro-box article-photo"><div class="retro-box-header">Sydney Houdy</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Sydney Houdy on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div><div class="article-main"><h1 class="article-title">One Interview, One Week of Clips</h1><p class="article-dek">How we turn a single hour of conversation into five days of social content, without it feeling chopped up.</p><div class="article-meta">Sydney Houdy · San Francisco</div><div class="article-body"><p>Most founders don't have a content team. What they have is maybe one good hour of their own time, once. So instead of scheduling five separate shoots for five pieces of content, we shoot one real conversation and mine it.</p>
+</script><div class="footer-reveal-panel" aria-hidden="true"><div class="footer-reveal-tile footer-reveal-tile--left"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div><div class="footer-reveal-tile footer-reveal-tile--right"><video autoplay muted loop playsinline data-wf-ignore="true"><source src="../../assets/hero.mp4" type="video/mp4"/><source src="../../assets/hero.webm" type="video/webm"/></video></div></div><div class="reveal-content-wrapper"><div class="case-content-bg"><div class="article-topbar"><a href="../" class="article-back">← Case Studies</a><div class="article-eyebrow">SOCIAL</div></div><div class="article-wrap"><div class="article-grid"><div class="article-photo-col"><div class="retro-box article-photo"><div class="retro-box-header">Sydney Houdy</div><div class="article-photo-frame"><img src="../../assets/hero-poster.jpg" alt="Sydney Houdy on set for Houdy's Video Company" class="is-active is-poster-crop"/></div></div></div><div class="article-main"><h1 class="article-title">One Interview, One Week of Clips</h1><p class="article-dek">How we turn a single hour of conversation into five days of social content, without it feeling chopped up.</p><div class="article-meta">Sydney Houdy · San Francisco</div><div class="article-body"><p>Most founders don't have a content team. What they have is maybe one good hour of their own time, once. So instead of scheduling five separate shoots for five pieces of content, we shoot one real conversation and mine it.</p>
 
 <h2>Record for the whole answer, not the soundbite</h2>
 
